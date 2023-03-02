@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { NavLink, Route, Routes } from "react-router-dom";
+import Home from "./components/home/Home";
+import View from "./components/view/View";
+import Guest from "./components/guest/Guest";
+import PageNotFound from "./components/pageNotFound/PageNotFound";
+import { Nav, Navbar } from "rsuite";
+import HomeIcon from "@rsuite/icons/legacy/Home";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [reservationList, setReservationList] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar appearance={"inverse"}>
+        <Navbar.Brand as="h5">ADMIN</Navbar.Brand>
+        <Nav pullRight>
+          <Nav.Item
+            style={{ fontWeight: "bold" }}
+            as={NavLink}
+            to="/"
+            icon={<HomeIcon />}
+          >
+            Home
+          </Nav.Item>
+          <Nav.Item style={{ fontWeight: "bold" }} as={NavLink} to="view">
+            View
+          </Nav.Item>
+          <Nav.Item style={{ fontWeight: "bold" }} as={NavLink} to="room">
+            Guest
+          </Nav.Item>
+        </Nav>
+        {/* <Nav pullRight>
+          <Nav.Item icon={<CogIcon />}>Settings</Nav.Item>
+        </Nav> */}
+      </Navbar>
+
+      <Routes>
+        <Route
+          path={"/"}
+          element={
+            <Home
+              reservationList={reservationList}
+              setReservationList={setReservationList}
+              userDetails={userDetails}
+              setUserDetails={setUserDetails}
+            />
+          }
+        />
+        <Route
+          path={"view"}
+          element={<View reservationList={reservationList} />}
+        />
+        <Route
+          path={"room"}
+          element={
+            <Guest
+              reservationList={reservationList}
+              setReservationList={setReservationList}
+            />
+          }
+        />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
