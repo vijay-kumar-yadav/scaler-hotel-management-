@@ -14,7 +14,14 @@ const App = () => {
   return (
     <>
       <Navbar className="navbar">
-        <Navbar.Brand as="h5">ADMIN</Navbar.Brand>
+        <Navbar.Brand
+          style={{
+            userSelect: "none",
+          }}
+          as="h4"
+        >
+          ADMIN
+        </Navbar.Brand>
         <Nav pullRight>
           <Nav.Item
             style={{ fontWeight: "bold" }}
