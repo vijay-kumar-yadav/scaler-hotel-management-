@@ -73,11 +73,52 @@ const Room = ({ reservationList, setReservationList }) => {
     setData(nextData);
     setReservationList(data);
   };
+  const [sortColumn, setSortColumn] = React.useState();
+  const [sortType, setSortType] = React.useState();
+  const [loading, setLoading] = React.useState(false);
 
+  const getData = () => {
+    if (sortColumn && sortType) {
+      return reservationList.sort((a, b) => {
+        let x = a[sortColumn];
+        let y = b[sortColumn];
+        if (typeof x === "string") {
+          x = x.charCodeAt();
+        }
+        if (typeof y === "string") {
+          y = y.charCodeAt();
+        }
+        if (sortType === "asc") {
+          return x - y;
+        } else {
+          return y - x;
+        }
+      });
+    }
+    return data;
+  };
+
+  const handleSortColumn = (sortColumn, sortType) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSortColumn(sortColumn);
+      setSortType(sortType);
+    }, 500);
+  };
   return (
     <Container style={{ overflow: "hidden", height: "100vh" }}>
-      <Table cellBordered fillHeight width={"100vw"} data={reservationList}>
-        <Column flexGrow={2} width={200}>
+      <Table
+        sortColumn={sortColumn}
+        sortType={sortType}
+        onSortColumn={handleSortColumn}
+        loading={loading}
+        cellBordered
+        fillHeight
+        width={"100vw"}
+        data={getData()}
+      >
+        <Column flexGrow={2} width={200} sortable>
           <HeaderCell>Name</HeaderCell>
           <EditableCell onChange={handleChange} dataKey={"title"} />
         </Column>
