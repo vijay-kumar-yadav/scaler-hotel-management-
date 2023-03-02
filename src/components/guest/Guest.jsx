@@ -75,9 +75,7 @@ const Room = ({ reservationList, setReservationList }) => {
   };
 
   return (
-    <Container
-      style={{ overflow: "hidden", height: "100vh", backgroundColor: "orange" }}
-    >
+    <Container style={{ overflow: "hidden", height: "100vh" }}>
       <Table cellBordered fillHeight width={"100vw"} data={reservationList}>
         <Column flexGrow={2} width={200}>
           <HeaderCell>Name</HeaderCell>
