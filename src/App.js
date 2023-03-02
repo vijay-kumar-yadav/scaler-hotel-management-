@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./App.css";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
 import View from "./components/view/View";
@@ -6,14 +7,13 @@ import Guest from "./components/guest/Guest";
 import PageNotFound from "./components/pageNotFound/PageNotFound";
 import { Nav, Navbar } from "rsuite";
 import HomeIcon from "@rsuite/icons/legacy/Home";
-import "./App.css";
 
 const App = () => {
   const [reservationList, setReservationList] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
   return (
     <>
-      <Navbar appearance={"inverse"}>
+      <Navbar className="navbar">
         <Navbar.Brand as="h5">ADMIN</Navbar.Brand>
         <Nav pullRight>
           <Nav.Item
